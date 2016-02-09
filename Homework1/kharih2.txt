@@ -1,0 +1,3 @@
+Problem 2.3: If classes can belong to more than one area (e.g.,it can be both a theory and systems class),what changes to the database schema are necessary?
+
+A: 

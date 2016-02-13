@@ -48,7 +48,7 @@ order by student.name, student.grade;
 """
 
 
-# 
+# Ids and Names of pairs of students where one likes the other but is not their friend
 query_6 = """select distinct likes.id1, student.name, likes.id2, s.name
 from likes, student, student s, friend
 where likes.id1 = student.id and likes.id2 = s.id and likes.id1 = friend.id1 and 
@@ -59,7 +59,8 @@ and likes.id1 not in
 order by likes.id1, likes.id2;
 """
 
-
+# Ids and Names of triplets of students where a pair of students are from the previous query and
+# where one student can introduce the other two
 query_7 = """select distinct likes.id1 ID1, student.name name1, likes.id2 ID2, s.name name2, fr.id1 ID3, st.name name3
 from likes, student, student s, student st, friend, friend fr
 where likes.id1 = student.id and likes.id2 = s.id and likes.id1 = friend.id1 and fr.id1 = st.id and
@@ -68,12 +69,19 @@ likes.id1 in
 and likes.id1 not in
 (select id1 from friend where id2 = likes.id2)
 and fr.id1 in
-(select id1 from friend where id2 = likes.id1 or id2 = likes.id2)
+(select id1 from friend where id2 = likes.id1 and  id1 in (select id1 from friend where id2 = likes.id2))
 order by likes.id1, likes.id2, fr.id1;
 """
 
 
-query_8 = """"""
+# Triplets of students where they know each other but none of them know the others' friends
+query_8 = """select student.id, student.name, f.id2, st.name, fr.id2, s.name
+from student, friend f, friend fr, student st, student s where
+f.id1 = student.id and fr.id1 = student.id and st.id = f.id2 and s.id = fr.id2 and
+f.id2 in
+(select id1 from friend where id2 = fr.id2)
+group by student.id;
+"""
 
 
 # Average class scores for tenured and untenured professors

@@ -7,21 +7,31 @@ def get_professor_course_mapping(dirty_professor_course_data):
         professor_full_name, courses = row.split(' - ')
         professor_full_name = professor_full_name.strip()
         courses = courses.strip()
-        course_list = sorted(courses.split('|'))
+        course_list = courses.split('|')
         if professor_full_name.find(',') != -1:
             professor_name = professor_full_name.split(',')[0]
+        elif professor_full_name.find('.') != -1:
+            professor_name = professor_full_name.split('.')[1]
         else:
             if len(professor_full_name.split()) == 2:
                 professor_name = professor_full_name.split()[1]
             elif len(professor_full_name.split()) == 1:
                 professor_name = professor_full_name
 
+        professor_name = professor_name.title()
         if professor_name not in clean_professor_course_data:
             clean_professor_course_data[professor_name] = course_list
         else:
             clean_professor_course_data[professor_name].extend(course_list)
     
     return clean_professor_course_data
+
+
+def sort_courses_alphabetically(professor_course_data):
+    for professor_name in professor_course_data.keys():
+        course_list = professor_course_data[professor_name]
+        professor_course_data[professor_name] = sorted(course_list, key=str.lower)
+    return professor_course_data
 
 
 def get_unique_course_names(professor_course_mapping):
@@ -37,8 +47,10 @@ def jaccard_distance(string1, string2):
 
 def write_to_file(clean_professor_course_data, output_file_name):
     output_lines = []
-    for professor_name, course_list in clean_professor_course_data.items():
-        output_line = professor_name + ' - ' + '|'.join(course_list) + '\n'
+    prof_names = sorted(clean_professor_course_data.keys())
+    for professor_name in prof_names:
+        course_list = clean_professor_course_data[professor_name]
+        output_line = output_line = professor_name + ' - ' + '|'.join(course_list) + '\n'
         output_lines.append(output_line)
 
     with open(output_file_name, 'w') as output_file:
@@ -52,6 +64,7 @@ if __name__ == '__main__':
         dirty_data = dirty_file.readlines()
 
     professor_course_mapping = get_professor_course_mapping(dirty_data)
+    professor_course_mapping = sort_courses_alphabetically(professor_course_mapping)
     dirty_course_list = get_unique_course_names(professor_course_mapping)
     # print(dirty_course_list)
     write_to_file(professor_course_mapping, 'cleaned.txt')

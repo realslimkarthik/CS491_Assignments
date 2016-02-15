@@ -18,7 +18,7 @@ def get_professor_course_mapping(dirty_professor_course_data):
             elif len(professor_full_name.split()) == 1:
                 professor_name = professor_full_name
 
-        professor_name = professor_name.title()
+        professor_name = professor_name.strip().title()
         if professor_name not in clean_professor_course_data:
             clean_professor_course_data[professor_name] = course_list
         else:

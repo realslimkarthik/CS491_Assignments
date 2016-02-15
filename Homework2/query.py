@@ -2,27 +2,57 @@ from math import log
 from clean import get_professor_course_data
 
 
-def q1():
-    professor_course_data = get_professor_course_data('cleaned.txt')
+def q1(cleaned_txt):
+    professor_course_data = get_professor_course_data(cleaned_txt)
     course_set = set()
     for prof_name, course_list in professor_course_data.items():
         for course in course_list:
             course_set.add(course.lower())
-    return course_set
+    for course in course_set:
+        print(course)
 
 
-def q2():
-    professor_course_data = get_professor_course_data('cleaned.txt')
-    return professor_course_data['Theys']
+def q2(cleaned_txt):
+    professor_course_data = get_professor_course_data(cleaned_txt)
+    print(professor_course_data['Theys'])
 
 
-def q3():
-    professor_course_data = get_professor_course_data('cleaned.txt')
+def q3(cleaned_txt):
+    professor_course_data = get_professor_course_data(cleaned_txt)
+    idf = generate_idf(professor_course_data.values())
+    prof_names = professor_course_data.keys()
+    prof_comparison = []
+    for prof1 in prof_names:
+        for prof2 in prof_names:
+            if prof2 != prof1:
+                prof_data = {}
+                prof1_courses = set(professor_course_data[prof1])
+                prof2_courses = set(professor_course_data[prof2])
+                jaccard_distance_for_courses = weighted_jaccard_distance(prof1_courses, prof2_courses, idf)
+                prof_data['prof1'] = prof1
+                prof_data['prof2'] = prof2
+                prof_data['jaccard_distance'] = jaccard_distance_for_courses['jaccard_distance']
+                prof_comparison.append(prof_data)
+    sorted_prof_comparison = sorted([row['jaccard_distance'] for index, row in prof_comparison.enumerate()])
+    print(sorted_prof_comparison[0])
+
+
+def weighted_jaccard_distance(string1, string2, word_weights):
+    all_words = string1.union(string2)
+    common_words = string1.intersection(string2)
+    unique_words = all_words - common_words
     
-
-def weighted_jaccard_distance(string1, weight1, string2, weight2):
+    total_weight = 0
+    for word in all_words:
+        total_weight += word_weights[word.lower()]
     
-    pass
+    unique_weight = 0
+    for word in unique_words:
+        unique_weight += word_weights[word.lower()]
+
+    jaccard_distance = unique_weight / total_weight
+    return {'string1': string1, 'string2': string2, 'jaccard_distance': jaccard_distance}
+
 
 
 def generate_idf(list_of_documents):
@@ -43,3 +73,6 @@ def generate_idf(list_of_documents):
         idf_values[term] = log(number_of_docs / frequency)
             
     return idf_values
+
+
+if __name__ == '__main__':

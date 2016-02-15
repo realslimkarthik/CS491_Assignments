@@ -28,6 +28,9 @@ def get_professor_course_mapping(dirty_professor_course_data):
 
 
 def sort_courses_alphabetically(professor_course_data):
+    """
+        This function sorts the list of courses alphabetically for each professor.
+    """
     for professor_name in professor_course_data.keys():
         course_list = professor_course_data[professor_name]
         professor_course_data[professor_name] = sorted(course_list, key=str.lower)
@@ -41,10 +44,6 @@ def get_unique_course_names(professor_course_mapping):
     return course_set
 
 
-def jaccard_distance(string1, string2):
-    pass
-
-
 def write_to_file(clean_professor_course_data, output_file_name):
     output_lines = []
     prof_names = sorted(clean_professor_course_data.keys())
@@ -55,6 +54,20 @@ def write_to_file(clean_professor_course_data, output_file_name):
 
     with open(output_file_name, 'w') as output_file:
         output_file.writelines(output_lines)
+
+
+def get_professor_course_data(input_file):
+    with open(input_file) as class_data_file:
+        class_data = class_data_file.readlines()
+
+    professor_course_mapping = {}
+    for row in class_data:
+        prof_name, courses = row.split(' - ')
+        prof_name = prof_name.strip()
+        courses = courses.strip()
+        course_list = courses.split('|')
+        professor_course_mapping[prof_name] = course_list
+    return professor_course_mapping
 
 
 if __name__ == '__main__':

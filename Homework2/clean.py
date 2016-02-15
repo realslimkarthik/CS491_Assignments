@@ -16,6 +16,13 @@ def get_professor_course_mapping(dirty_professor_course_data):
     return clean_professor_course_data
 
 
+def get_unique_course_names(professor_course_mapping):
+    course_set = set()
+    for course_list in professor_course_mapping.values():
+        course_set = course_set.union(set(course_list))
+    return course_set
+
+
 if __name__ == '__main__':
     dirty_file_name = sys.argv[1]
 
@@ -23,4 +30,7 @@ if __name__ == '__main__':
         dirty_data = dirty_file.readlines()
 
     professor_course_mapping = get_professor_course_mapping(dirty_data)
-    print professor_course_mapping
+    # print(professor_course_mapping)
+    dirty_course_list = get_unique_course_names(professor_course_mapping)
+    # print(dirty_course_list)
+    

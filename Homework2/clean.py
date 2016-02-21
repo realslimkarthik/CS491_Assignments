@@ -1,4 +1,5 @@
 import sys
+import re
 
 
 def get_professor_course_mapping(dirty_professor_course_data):
@@ -37,11 +38,34 @@ def sort_courses_alphabetically(professor_course_data):
     return professor_course_data
 
 
-def get_unique_course_names(professor_course_mapping):
-    course_set = set()
-    for course_list in professor_course_mapping.values():
-        course_set = course_set.union(set(course_list))
-    return course_set
+# def get_unique_course_names(professor_course_mapping):
+#     course_set = set()
+#     for course_list in professor_course_mapping.values():
+#         course_set = course_set.union(set(course_list))
+#     return course_set
+
+
+def clean_special_symbols(list_of_strings):
+    cleaned_list_of_strings = []
+    for string in list_of_strings:
+        cleaned_string = string.replace(' & ', ' and ')
+        cleaned_string = cleaned_string.replace(' ii', ' 2')
+        cleaned_string = cleaned_string.replace(' II', ' 2')
+
+        cleaned_list_of_strings.append(cleaned_string)
+    return cleaned_list_of_strings
+
+
+def find_misspelt_course_names(course_lists):
+    pass
+
+
+def clean_course_titles(professor_course_data):
+    for prof_name in professor_course_data.keys():
+        course_list = professor_course_data[prof_name]
+        cleaned_course_list = clean_special_symbols(course_list)
+        professor_course_data[prof_name] = cleaned_course_list
+    return professor_course_data
 
 
 def write_to_file(clean_professor_course_data, output_file_name):
@@ -78,7 +102,8 @@ if __name__ == '__main__':
 
     professor_course_mapping = get_professor_course_mapping(dirty_data)
     professor_course_mapping = sort_courses_alphabetically(professor_course_mapping)
-    dirty_course_list = get_unique_course_names(professor_course_mapping)
+    professor_course_mapping = clean_course_titles(professor_course_mapping)
+    # dirty_course_list = get_unique_course_names(professor_course_mapping)
     # print(dirty_course_list)
     write_to_file(professor_course_mapping, 'cleaned.txt')
     

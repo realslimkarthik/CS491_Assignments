@@ -3,7 +3,7 @@ from clean import get_professor_course_data
 
 
 def q1(cleaned_txt):
-    professor_course_data = get_professor_course_data(cleaned_txt.splitlines())
+    professor_course_data = get_professor_course_data(cleaned_txt)
     course_set = set()
     for prof_name, course_list in professor_course_data.items():
         for course in course_list:
@@ -13,27 +13,27 @@ def q1(cleaned_txt):
 
 
 def q2(cleaned_txt):
-    professor_course_data = get_professor_course_data(cleaned_txt.splitlines())
+    professor_course_data = get_professor_course_data(cleaned_txt)
     print(professor_course_data['Theys'])
 
 
 def q3(cleaned_txt):
-    # professor_course_data = get_professor_course_data(cleaned_txt.splitlines())
-    professor_course_data = get_professor_course_data('cleaned.txt')
+    professor_course_data = get_professor_course_data(cleaned_txt)
     idf = generate_idf(professor_course_data.values())
     prof_names = professor_course_data.keys()
     prof_comparison = []
     for prof1 in prof_names:
-        for prof2 in prof_names:
-            if prof2 != prof1:
-                prof_data = {}
-                prof1_courses = get_words_from_courses(professor_course_data[prof1])
-                prof2_courses = get_words_from_courses(professor_course_data[prof2])
-                jaccard_distance_for_courses = weighted_jaccard_distance(prof1_courses, prof2_courses, idf)
-                prof_data['prof1'] = prof1
-                prof_data['prof2'] = prof2
-                prof_data['jaccard_distance'] = jaccard_distance_for_courses['jaccard_distance']
-                prof_comparison.append(prof_data)
+        if len(professor_course_data[prof1]) >= 5:
+            for prof2 in prof_names:
+                if prof2 != prof1 and len(professor_course_data[prof1]) >= 5:
+                    prof_data = {}
+                    prof1_courses = get_words_from_courses(professor_course_data[prof1])
+                    prof2_courses = get_words_from_courses(professor_course_data[prof2])
+                    jaccard_distance_for_courses = weighted_jaccard_distance(prof1_courses, prof2_courses, idf)
+                    prof_data['prof1'] = prof1
+                    prof_data['prof2'] = prof2
+                    prof_data['jaccard_distance'] = jaccard_distance_for_courses['jaccard_distance']
+                    prof_comparison.append(prof_data)
     sorted_prof_comparison = sorted([(row['jaccard_distance'], row['prof1'], row['prof2']) for row in prof_comparison])
     print(sorted_prof_comparison[0])
 
@@ -86,6 +86,4 @@ def generate_idf(list_of_documents):
 
 
 if __name__ == '__main__':
-    with open('cleaned.txt') as clean_file:
-        clean_data = clean_file.read()
-    q3(clean_data)
+    q3('cleaned.txt')

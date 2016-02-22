@@ -1,6 +1,7 @@
 import sys
+import enchant
+from Levenshtein import distance
 import re
-
 
 def get_professor_course_mapping(dirty_professor_course_data):
     clean_professor_course_data = {}
@@ -38,33 +39,75 @@ def sort_courses_alphabetically(professor_course_data):
     return professor_course_data
 
 
-# def get_unique_course_names(professor_course_mapping):
-#     course_set = set()
-#     for course_list in professor_course_mapping.values():
-#         course_set = course_set.union(set(course_list))
-#     return course_set
-
-
 def clean_special_symbols(list_of_strings):
     cleaned_list_of_strings = []
+    ampersand_regex = re.compile(r'\b(\&)\b')
+    roman_numeral_regex = re.compile(r'\b(i+)\b', re.IGNORECASE)
+    hyphen_colon_regex = re.compile(r'-|:')
     for string in list_of_strings:
-        cleaned_string = string.replace(' & ', ' and ')
-        cleaned_string = cleaned_string.replace(' ii', ' 2')
-        cleaned_string = cleaned_string.replace(' II', ' 2')
+        # cleaned_string = ampersand_regex.sub(' and ', string.lower())
+        cleaned_string = string.lower().replace(' & ', ' and ')
+
+        match = roman_numeral_regex.search(cleaned_string)
+        if match:
+            number = len(match.group(0))
+            cleaned_string = roman_numeral_regex.sub(' ' + str(number), cleaned_string)
+        cleaned_string = hyphen_colon_regex.sub(' ', cleaned_string)
+        cleaned_string = cleaned_string.replace(',', '')
+        cleaned_string = cleaned_string.replace('?', '.')
 
         cleaned_list_of_strings.append(cleaned_string)
     return cleaned_list_of_strings
 
 
-def find_misspelt_course_names(course_lists):
-    pass
+def clean_abbreviations(list_of_strings):
+    cleaned_list_of_strings = []
+    intro_regex = re.compile(r'\b(intro)(\.|\b)')
+    three_dimensions_regex = re.compile(r'\b(3d)\b', re.IGNORECASE)
+    for string in list_of_strings:
+        cleaned_string = intro_regex.sub('introduction ', string.lower())
+        cleaned_string = three_dimensions_regex.sub('3 dimensional ', cleaned_string)
+
+        cleaned_list_of_strings.append(cleaned_string)
+    return cleaned_list_of_strings
 
 
 def clean_course_titles(professor_course_data):
     for prof_name in professor_course_data.keys():
         course_list = professor_course_data[prof_name]
         cleaned_course_list = clean_special_symbols(course_list)
+        cleaned_course_list = clean_abbreviations(cleaned_course_list)
         professor_course_data[prof_name] = cleaned_course_list
+    return professor_course_data
+
+
+def title_case_course_names(professor_course_data):
+    for prof_name in professor_course_data:
+        cleaned_course_list = []
+        for course in professor_course_data[prof_name]:
+            cleaned_course_list.append(course.title())
+        professor_course_data[prof_name] = cleaned_course_list
+    return professor_course_data
+
+
+def fix_misspelt_course_names(professor_course_data):
+    word_dict = enchant.Dict('en_US')
+    for prof_name in professor_course_data.keys():
+        new_course_list = []
+        for course in professor_course_data[prof_name]:
+            term_list = course.split()
+            new_term_list = []
+            for term in term_list:
+                new_term = term
+                if not word_dict.check(term):
+                    suggestions = word_dict.suggest(term)
+                    suggestions = filter(lambda x: len(x) == len(term), suggestions)
+                    suggestions = list(filter(lambda x: distance(term, x) == 1, suggestions))
+                    if len(suggestions) > 0:
+                        new_term = suggestions[0]
+                new_term_list.append(new_term)
+            new_course_list.append(' '.join(new_term_list))
+        professor_course_data[prof_name] = new_course_list
     return professor_course_data
 
 
@@ -96,13 +139,14 @@ def get_professor_course_data(input_file):
 
 if __name__ == '__main__':
     dirty_file_name = sys.argv[1]
-
     with open(dirty_file_name) as dirty_file:
         dirty_data = dirty_file.readlines()
 
     professor_course_mapping = get_professor_course_mapping(dirty_data)
     professor_course_mapping = sort_courses_alphabetically(professor_course_mapping)
     professor_course_mapping = clean_course_titles(professor_course_mapping)
+    professor_course_mapping = title_case_course_names(professor_course_mapping)
+    professor_course_mapping = fix_misspelt_course_names(professor_course_mapping)
     # dirty_course_list = get_unique_course_names(professor_course_mapping)
     # print(dirty_course_list)
     write_to_file(professor_course_mapping, 'cleaned.txt')

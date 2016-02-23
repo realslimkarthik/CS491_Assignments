@@ -63,10 +63,13 @@ def clean_special_symbols(list_of_strings):
 def clean_abbreviations(list_of_strings):
     cleaned_list_of_strings = []
     intro_regex = re.compile(r'\b(intro)(\.|\b)')
-    three_dimensions_regex = re.compile(r'\b(3d)\b', re.IGNORECASE)
+    n_dimensions_regex = re.compile(r'\b((\d+)d)\b', re.IGNORECASE)
     for string in list_of_strings:
         cleaned_string = intro_regex.sub('introduction ', string.lower())
-        cleaned_string = three_dimensions_regex.sub('3 dimensional ', cleaned_string)
+        match = n_dimensions_regex.search(cleaned_string)
+        if match:
+            n = str(match.group(0)[:-1])
+            cleaned_string = n_dimensions_regex.sub(n + ' dimensional ', cleaned_string)
 
         cleaned_list_of_strings.append(cleaned_string)
     return cleaned_list_of_strings
@@ -105,6 +108,8 @@ def fix_misspelt_course_names(professor_course_data):
                     suggestions = list(filter(lambda x: distance(term, x) == 1, suggestions))
                     if len(suggestions) > 0:
                         new_term = suggestions[0]
+                    else:
+                        word_dict.add(term)
                 new_term_list.append(new_term)
             new_course_list.append(' '.join(new_term_list))
         professor_course_data[prof_name] = new_course_list

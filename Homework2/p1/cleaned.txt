@@ -2,9 +2,9 @@ Adiutori - American Fiction And Mass Culture
 Ansari - American Fiction And Mass Culture|Foundations Of Electromagnetism And Modern Physics|Structural Analysis
 Archias - Collections And Visual Knowledge In Early Modern Europe|Introduction To Modernism Past Future Exile Home
 Bailey - Introduction To Science And Society Theories And Controversies|Operating Systems
-Bassiri - Altered States|Applied Artifical Intelligence|Heat And Mass Transfer|Principles Of Ecology
+Bassiri - Heat And Mass Transfer|Principles Of Ecology
 Bell - Art After India|Photo Lab The Visual Performance Of Rights|Software Engineering
-Bergerwolf - Advanced Probabilistic Methods In Computer Science|Architecture Of The House Through Space And Time|Biomaterialz|Building A Web Application|Computational Methods For Biology|Introduction To Filmmaking Time And Form|Topics In Information Retrieval And Web Search|Writing And Speaking Chinese 1
+Bergerwolf - Advanced Probabilistic Methods In Computer Science|Algorithms For Big Data|Architecture Of The House Through Space And Time|Biomaterials|Building A Web Application|Computational Methods For Biology|Introduction To Filmmaking Time And Form|Recent Applications Of Probability And Statistics|Topics In Information Retrieval And Web Search|Writing And Speaking Chinese 1
 Boy - Hilbert Spaces And Their Applications|Introduction To Filmmaking Time And Form|Narrative And Immersion
 Brennan - Astrophysics And Cosmology|Intermediate 3 Dimensional Computer Animation
 Caliskan - Analytic Geometry And Calculus|Electrical Circuits And Signals|Melville Conrad And The Sea|Statistical Mechanics
@@ -14,7 +14,7 @@ Clarno - Chemical Process Design|Introduction To Computation For The Humanities 
 Cranch - 3 Dimensional Photography And Geometry Processing
 Cui - Computational Theory Of Molecular Evolution|The Postcolonial And The Postmodern
 Dai - Introductory Calculus Part 2
-Dasgupta - Algorithms For Big Data|Cultures And Countercultures The American Novel After World War 2|Parallel Computation Models Algorithms Limits|Recent Applications Of Probability And Statistics
+Dasgupta - Cultures And Countercultures The American Novel After World War 2|Parallel Computation Models Algorithms Limits
 Di Eugenio - Computational Physics|Fracture Mechanics|The United States Metropolis
 Dunn - Introduction To Architectural Design
 Eriksson - Computer Graphics Lab|Introduction To Computation For The Humanities And Social Sciences
@@ -39,20 +39,19 @@ Lekili - Filtering And Prediction Of Hidden Markov Models|Introductory Calculus 
 Lillis - Advanced Programming For Digital Art And Literature|Coding The Matrix Linear Algebra Through Computer Science Applications|Educational Software Seminar|Introduction To Computation For The Humanities And Social Sciences|Parallel And Distributed Programming
 Lu - Biomaterials|Computational Fluid Dynamics|Crossing The Consumer Chasm By Design|Innovation And Technology Management 2|Models Of Computation|Pattern Recognition And Machine Learning|Temporalities|The Literary Scholar|Writing And Speaking Chinese 1
 Lyons - Cultures And Countercultures The American Novel After World War 2|Human Computer Interaction Seminar|Internet And Web Algorithms|Introduction To Sceintific Computing|Reinventions Of Life Aesthetics Biopolitics And The Avant Gard's|Writing And Speaking German 1
-Marai - ED Game Engines|Temporalitiez
+Marai - 2 Dimensional Game Engines|Temporalities
 Metlushko - Mathematical Statistics|Melville Conrad And The Sea|Stem Cell Engineering|Women's Voices In Medieval Literature
 Mojab - Individual Independent Study|Introduction To Power Engineering
 Ozevin - Fundamentals Of Computer Systems|Honors Linear Algebra|Introduction To Scientific Computing And Problem Solving|Transport And Biotransport Processes
-Prasad Sistla - Algorithmic Foundations Of Computational Biology|El Greco And Velázquez|Introduction To Computer Graphics|Molecular Genetics|Pompeii Art Architecture And Archaeology In The Lost City
-Rao - Collections And Visual Knowledge In Early Modern Europe|Combinatorial Topology|Independent Study In ED Game Engines|Touring The Empire Travel Literature And The Idea Of America
+Rao - Collections And Visual Knowledge In Early Modern Europe|Combinatorial Topology|Independent Study In 2 Dimensional Game Engines|Touring The Empire Travel Literature And The Idea Of America
 Reddy - Altered Staten|Quantum Mechanics|Reinventions Of Life Aesthetics Biopolitics And The Avant Gard's
 Reed - Introduction To Discrete Structures And Probability|Thermodynamics
 Sauerwald - American Poetry 2 Modernism|Computer Systems Security Principles And Practice|Computer Vision|Pattern Recognition And Machine Learning|Talking With Computers|The Postcolonial And The Postmodern|Topics In Information Retrieval And Web Search|Writing And Speaking Chinese 1
 Savar - Computational Topology|Fieldwork In The Urban Community|Intellectual Life And Culture In The Post Western World
-Shonfeld - Cell And Molecular Biology|Computer Aided Visualization And Design|Heat And Mass Transfer|Medical Bioinformatics
-Siber - 3 Dimensional Photography|Reading And Research
+Shonfeld - Computer Aided Visualization And Design|Heat And Mass Transfer|Medical Bioinformatics
+Siber - 3 Dimensional Photography|Cell And Molecular Biology|Reading And Research
 Sinapova - Introduction To Computational Geometry|The Claims Of Fiction
-Sistla - Database Management Systems|Dynamics And Vibrations|Introduction To Power Engineering
+Sistla - Algorithmic Foundations Of Computational Biology|Database Management Systems|Dynamics And Vibrations|El Greco And Velázquez|Introduction To Computer Graphics|Introduction To Power Engineering|Molecular Genetics|Pompeii Art Architecture And Archaeology In The Lost City
 Sloan - Introduction To Computational Linguistics
 Soheili - Biophysical And Bioinorganic Chemistry|Shakespeare
 Solworth - Introduction To Computation For The Humanities And Social Sciences|Mechanics Of Solids|Nineteenth Century Architecture
@@ -68,6 +67,6 @@ Walden - Back To The Future Nostalgia And Futurity In Contemporary Sci Fe TV And
 Westland - Introductory Calculus Part 2|Melville Conrad And The Sea|Narrative And Immersion|Probabilistic Graphical Models|Projects In Engineering Design|Victorian Inequality
 Wolak - American Fiction And Mass Culture|Descartes' World
 Wolfson - Data Driven Vision And Graphics|Database Management Systems
-Yu - Computers And Human Values|Special Topics In Advanced Algorithms
+Yu - Altered States|Applied Artifical Intelligence|Computers And Human Values|Special Topics In Advanced Algorithms
 Ziebart - Introduction To Number Theory|Machine Learning Reading Group
 Zuck - Basic Physics|Statistical Inference 2

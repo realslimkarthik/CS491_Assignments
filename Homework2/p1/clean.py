@@ -1,7 +1,8 @@
 import sys
+import re
+import roman
 import enchant
 from Levenshtein import distance
-import re
 
 def get_professor_course_mapping(dirty_professor_course_data):
     clean_professor_course_data = {}
@@ -13,12 +14,14 @@ def get_professor_course_mapping(dirty_professor_course_data):
         if professor_full_name.find(',') != -1:
             professor_name = professor_full_name.split(',')[0]
         elif professor_full_name.find('.') != -1:
-            professor_name = professor_full_name.split('.')[1]
+            professor_name = professor_full_name.split('.')[-1]
+            if len(professor_name.split()) > 1:
+                professor_name = professor_name.split()[-1]
         else:
-            if len(professor_full_name.split()) == 2:
-                professor_name = professor_full_name.split()[1]
-            elif len(professor_full_name.split()) == 1:
+            if len(professor_full_name.split()) == 1:
                 professor_name = professor_full_name
+            elif len(professor_full_name.split()) > 1:
+                professor_name = professor_full_name.split()[-1]
 
         professor_name = professor_name.strip().title()
         if professor_name not in clean_professor_course_data:
@@ -41,16 +44,15 @@ def sort_courses_alphabetically(professor_course_data):
 
 def clean_special_symbols(list_of_strings):
     cleaned_list_of_strings = []
-    ampersand_regex = re.compile(r'\b(\&)\b')
     roman_numeral_regex = re.compile(r'\b(i+)\b', re.IGNORECASE)
+    roman_numeral_regex = re.compile(r'\b(ix|iv|v|v?i{1,3})\b')
     hyphen_colon_regex = re.compile(r'-|:')
     for string in list_of_strings:
-        # cleaned_string = ampersand_regex.sub(' and ', string.lower())
         cleaned_string = string.lower().replace(' & ', ' and ')
 
         match = roman_numeral_regex.search(cleaned_string)
         if match:
-            number = len(match.group(0))
+            number = roman.fromRoman(match.group(0).upper())
             cleaned_string = roman_numeral_regex.sub(' ' + str(number), cleaned_string)
         cleaned_string = hyphen_colon_regex.sub(' ', cleaned_string)
         cleaned_string = cleaned_string.replace(',', '')
@@ -63,10 +65,13 @@ def clean_special_symbols(list_of_strings):
 def clean_abbreviations(list_of_strings):
     cleaned_list_of_strings = []
     intro_regex = re.compile(r'\b(intro)(\.|\b)')
-    three_dimensions_regex = re.compile(r'\b(3d)\b', re.IGNORECASE)
+    n_dimensions_regex = re.compile(r'\b((\d+)d)\b', re.IGNORECASE)
     for string in list_of_strings:
         cleaned_string = intro_regex.sub('introduction ', string.lower())
-        cleaned_string = three_dimensions_regex.sub('3 dimensional ', cleaned_string)
+        match = n_dimensions_regex.search(cleaned_string)
+        if match:
+            n = str(match.group(0)[:-1])
+            cleaned_string = n_dimensions_regex.sub(n + ' dimensional ', cleaned_string)
 
         cleaned_list_of_strings.append(cleaned_string)
     return cleaned_list_of_strings
@@ -105,6 +110,8 @@ def fix_misspelt_course_names(professor_course_data):
                     suggestions = list(filter(lambda x: distance(term, x) == 1, suggestions))
                     if len(suggestions) > 0:
                         new_term = suggestions[0]
+                    else:
+                        word_dict.add(term)
                 new_term_list.append(new_term)
             new_course_list.append(' '.join(new_term_list))
         professor_course_data[prof_name] = new_course_list
@@ -123,20 +130,6 @@ def write_to_file(clean_professor_course_data, output_file_name):
         output_file.writelines(output_lines)
 
 
-def get_professor_course_data(input_file):
-    with open(input_file) as class_data_file:
-        class_data = class_data_file.readlines()
-
-    professor_course_mapping = {}
-    for row in class_data:
-        prof_name, courses = row.split(' - ')
-        prof_name = prof_name.strip()
-        courses = courses.strip()
-        course_list = courses.split('|')
-        professor_course_mapping[prof_name] = course_list
-    return professor_course_mapping
-
-
 if __name__ == '__main__':
     dirty_file_name = sys.argv[1]
     with open(dirty_file_name) as dirty_file:
@@ -147,7 +140,5 @@ if __name__ == '__main__':
     professor_course_mapping = clean_course_titles(professor_course_mapping)
     professor_course_mapping = title_case_course_names(professor_course_mapping)
     professor_course_mapping = fix_misspelt_course_names(professor_course_mapping)
-    # dirty_course_list = get_unique_course_names(professor_course_mapping)
-    # print(dirty_course_list)
     write_to_file(professor_course_mapping, 'cleaned.txt')
     

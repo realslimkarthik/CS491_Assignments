@@ -1,5 +1,18 @@
 from math import log
-from clean import get_professor_course_data
+
+
+def get_professor_course_data(input_file):
+    with open(input_file) as class_data_file:
+        class_data = class_data_file.readlines()
+
+    professor_course_mapping = {}
+    for row in class_data:
+        prof_name, courses = row.split(' - ')
+        prof_name = prof_name.strip()
+        courses = courses.strip()
+        course_list = courses.split('|')
+        professor_course_mapping[prof_name] = course_list
+    return professor_course_mapping
 
 
 def q1(cleaned_txt):
@@ -8,13 +21,14 @@ def q1(cleaned_txt):
     for prof_name, course_list in professor_course_data.items():
         for course in course_list:
             course_set.add(course.lower())
-    for course in course_set:
-        print(course)
+    print(len(course_set))
+    return list(course_set)
 
 
 def q2(cleaned_txt):
     professor_course_data = get_professor_course_data(cleaned_txt)
     print(professor_course_data['Theys'])
+    return professor_course_data['Theys']
 
 
 def q3(cleaned_txt):
@@ -25,7 +39,7 @@ def q3(cleaned_txt):
     for prof1 in prof_names:
         if len(professor_course_data[prof1]) >= 5:
             for prof2 in prof_names:
-                if prof2 != prof1 and len(professor_course_data[prof1]) >= 5:
+                if prof2 != prof1 and len(professor_course_data[prof2]) >= 5:
                     prof_data = {}
                     prof1_courses = get_words_from_courses(professor_course_data[prof1])
                     prof2_courses = get_words_from_courses(professor_course_data[prof2])
@@ -36,6 +50,7 @@ def q3(cleaned_txt):
                     prof_comparison.append(prof_data)
     sorted_prof_comparison = sorted([(row['jaccard_distance'], row['prof1'], row['prof2']) for row in prof_comparison])
     print(sorted_prof_comparison[0])
+    return sorted_prof_comparison[0]
 
 
 def get_words_from_courses(course_list):
@@ -86,4 +101,6 @@ def generate_idf(list_of_documents):
 
 
 if __name__ == '__main__':
+    q1('cleaned.txt')
+    q2('cleaned.txt')
     q3('cleaned.txt')

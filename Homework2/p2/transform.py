@@ -11,8 +11,6 @@ def generate_soup(html_file_name):
 def get_game_number(table_row):
     table_cell = table_row.find_all('td')[0]
     game_number = table_cell.find_all('span')[1].find('a').text
-    print(table_cell)
-    print(game_number)
     return game_number
 
 
@@ -20,35 +18,30 @@ def get_game_year(table_row):
     table_cell = table_row.find_all('td')[1]
     game_date = table_cell.find_all('span')[1].text
     game_year = game_date.split(',')[1].strip()
-    print(game_year)
     return game_year
 
 
 def get_winning_team(table_row):
     table_cell = table_row.find_all('td')[2]
     winning_team = table_cell.find_all('span')[0].text.strip(' !')
-    print(winning_team)
     return winning_team
 
 
 def get_score(table_row):
     table_cell = table_row.find_all('td')[3]
     score = table_cell.find_all('span')[1].text
-    print(score)
     return score
 
 
 def get_losing_team(table_row):
     table_cell = table_row.find_all('td')[4]
     losing_team = table_cell.find_all('span')[0].text.strip(' !')
-    print(losing_team)
     return losing_team
 
 
 def get_venue(table_row):
     table_cell = table_row.find_all('td')[5]
     venue = table_cell.find_all('span')[0].text.strip(' !')
-    print(venue)
     return venue
 
 
@@ -79,5 +72,4 @@ if __name__ == '__main__':
     soup = generate_soup('superbowl.html')
     table_data = soup.find_all('table')[1]
     superbowl_data = extract_data_from_table(table_data)
-    print(superbowl_data)
     write_to_csv(superbowl_data, 'result.csv')

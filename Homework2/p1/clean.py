@@ -63,8 +63,10 @@ def clean_abbreviations(list_of_strings):
     cleaned_list_of_strings = []
     intro_regex = re.compile(r'\b(intro)(\.|\b)')
     n_dimensions_regex = re.compile(r'\b((\d+)d)\b', re.IGNORECASE)
+    tv_regex = re.compile(r'\bt(?|.)v(?|.)\b', re.IGNORECASE)
     for string in list_of_strings:
         cleaned_string = intro_regex.sub('introduction ', string.lower())
+        cleaned_string = tv_regex.sub('television', cleaned_string)
         match = n_dimensions_regex.search(cleaned_string)
         if match:
             n = str(match.group(0)[:-1])
@@ -92,15 +94,13 @@ def title_case_course_names(professor_course_data):
     return professor_course_data
 
 
-def edit_distance_for_equal_length_strings(string1, string2):
-    if len(string1) != len(string2):
-        return -1
+def edit_distance(string1, string2):
+    string1_len = len(string1)
+    string2_len = len(string2)
+    edit_distances = [[0 for j in range(string2_len + 1)] for i in range(string1_len + 1)]
 
-    string_length = len(string1)
-    edit_distances = [[0 for j in range(string_length)] for i in range(string_length)]
-
-    for i in range(string_length):
-        for j in range(string_length):
+    for i in range(string1_len + 1):
+        for j in range(string2_len + 1):
             if i == 0:
                 edit_distances[i][j] = j
             elif j == 0:
@@ -109,7 +109,7 @@ def edit_distance_for_equal_length_strings(string1, string2):
                 edit_distances[i][j] = edit_distances[i-1][j-1]
             else:
                 edit_distances[i][j] = 1 + min(edit_distances[i-1][j], edit_distances[i][j-1], edit_distances[i-1][j-1])
-    return edit_distances[string_length-1][string_length-1]
+    return edit_distances[string1_len][string2_len]
 
 
 def fix_misspelt_course_names(professor_course_data):
@@ -124,7 +124,7 @@ def fix_misspelt_course_names(professor_course_data):
                 if not word_dict.check(term):
                     suggestions = word_dict.suggest(term)
                     suggestions = filter(lambda x: len(x) == len(term), suggestions)
-                    suggestions = list(filter(lambda x: edit_distance_for_equal_length_strings(term, x) == 1, suggestions))
+                    suggestions = list(filter(lambda x: edit_distance(term, x) == 1, suggestions))
                     if len(suggestions) > 0:
                         new_term = suggestions[0]
                     else:

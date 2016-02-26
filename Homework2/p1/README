@@ -1,0 +1,47 @@
+README: The details of the programs used in problem 1 are as follows.
+
+Installed packages:
+    *enchant
+    *roman
+
+To install, run the pip3 install command on the requirements.txt file as follows
+
+pip3 install -r requirements.txt
+
+
+Transformation Rules:
+    *Professor names:
+        - Assumption:  There's only 1 '.' or ',' in a professor's name
+        - If the professor's name has a '.' in it, then take the part after the '.' and choose the last name in that part of the name.
+            Eg: Abc D. Efg Hij ===>> Hij
+        - If the professor's name has a ',' in it, then take the part before the ',' as the last name
+        - If the professor's name has neither of the above mentioned symbols, choose the last appearing name in the sequence of the professor's full name as the professor's last name
+            Eg: Abc Def Ghi ===>> Ghi
+
+    *Course titles:
+        - Replace all '&'s with the word 'and'
+        - Remove all commas from the string
+        - Replace '?'s with '.'
+        - Replace ':'s and '-'s with a single whitespace
+        - Replace all roman numerals with the corresponding number (works up to 9)
+            Eg: Introduction to Roman Numerals part vii ===>> Introduction to Roman Numerals part 7
+        - Replace instances of nD with n Dimensional.
+            Eg: 7D Game Engines ===>> 7 Dimensional Game Engines
+        - Standardize 'intro', 'intro.' to be 'Introduction'
+        - Changes various forms of the abbreviation tv/TV/Tv/T.v/etc. to Television
+        - Changes various forms of the abbreviation Sci fi/Scifi/Sci-fi/etc. to Science Fiction
+        - Attempts to clean spelling mistakes. If unable to find word in dictionary, add to dictionary and leave the word untouched
+        - Spell checking assumes that all spelling mistakes are typos and hence the misspelt word and the correctly spelt word will always have the same length
+
+
+Note:
+    * I've implemented weighted Jaccard Distance instead of plain Jaccard Distance because I believe that it might perform better for q3. I've generated my IDF values by considering a professor's list of courses as a document and the number of professors as the size of the corpus.
+    * I'd asked a question on Piazza about what exactly the input to the 3 functions q1, q2 and q3 in query.py should take. Since I haven't received an answer, my functions handle either the name of the file or they handle the output string of a file_handle.read() command.
+
+
+References:
+    * Weighted Jaccard Distance - Wikipedia and slides used in class
+    * Edit Distance - I came by an edit distance implementation on a website called geeksforgeeks a year or so ago when I was preparing for interviews, I use the same method always so it might resemble what you find on the website at http://www.geeksforgeeks.org/dynamic-programming-set-5-edit-distance/
+    * Regular Expressions - I used this website (https://regex101.com/#python) to test out my regular expressions and check the explanations given on the right hand side and the quick reference given on the bottom right
+    * Enchant - I got the idea to use this library on stackoverflow and from our class' Piazza discussions
+    * I discussed the outputs of our 3 queries in query.py with my classmate Jennifer Jesuraj (jjesur3) but we did not exchange any code

@@ -33,9 +33,6 @@ def get_professor_course_mapping(dirty_professor_course_data):
 
 
 def sort_courses_alphabetically(professor_course_data):
-    """
-        This function sorts the list of courses alphabetically for each professor.
-    """
     for professor_name in professor_course_data.keys():
         course_list = professor_course_data[professor_name]
         professor_course_data[professor_name] = sorted(course_list, key=str.lower)
@@ -95,8 +92,29 @@ def title_case_course_names(professor_course_data):
     return professor_course_data
 
 
+def edit_distance_for_equal_length_strings(string1, string2):
+    if len(string1) != len(string2):
+        return -1
+
+    string_length = len(string1)
+    edit_distances = [[0 for j in range(string_length)] for i in range(string_length)]
+
+    for i in range(string_length):
+        for j in range(string_length):
+            if i == 0:
+                edit_distances[i][j] = j
+            elif j == 0:
+                edit_distances[i][j] = i
+            elif string1[i-1] == string2[j-1]:
+                edit_distances[i][j] = edit_distances[i-1][j-1]
+            else:
+                edit_distances[i][j] = 1 + min(edit_distances[i-1][j], edit_distances[i][j-1], edit_distances[i-1][j-1])
+    return edit_distances[string_length-1][string_length-1]
+
+
 def fix_misspelt_course_names(professor_course_data):
-    word_dict = enchant.Dict('en_US')
+    word_dict = enchant.Dict('en')
+    # word_dict = enchant.Dict('en_US')
     for prof_name in professor_course_data.keys():
         new_course_list = []
         for course in professor_course_data[prof_name]:
@@ -107,9 +125,14 @@ def fix_misspelt_course_names(professor_course_data):
                 if not word_dict.check(term):
                     suggestions = word_dict.suggest(term)
                     suggestions = filter(lambda x: len(x) == len(term), suggestions)
-                    suggestions = list(filter(lambda x: distance(term, x) == 1, suggestions))
+                    # suggestions = list(filter(lambda x: distance(term, x) == 1, suggestions))
+                    suggestions = list(filter(lambda x: edit_distance_for_equal_length_strings(term, x) == 1, suggestions))
                     if len(suggestions) > 0:
+                        print(suggestions)
+                        print(term)
+                        print(prof_name)
                         new_term = suggestions[0]
+                        # sys.exit(1)
                     else:
                         word_dict.add(term)
                 new_term_list.append(new_term)
@@ -138,7 +161,7 @@ if __name__ == '__main__':
     professor_course_mapping = get_professor_course_mapping(dirty_data)
     professor_course_mapping = sort_courses_alphabetically(professor_course_mapping)
     professor_course_mapping = clean_course_titles(professor_course_mapping)
-    professor_course_mapping = title_case_course_names(professor_course_mapping)
     professor_course_mapping = fix_misspelt_course_names(professor_course_mapping)
+    professor_course_mapping = title_case_course_names(professor_course_mapping)
     write_to_file(professor_course_mapping, 'cleaned.txt')
     

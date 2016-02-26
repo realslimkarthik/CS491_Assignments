@@ -1,9 +1,16 @@
 from math import log
 
 
-def get_professor_course_data(input_file):
-    with open(input_file) as class_data_file:
-        class_data = class_data_file.readlines()
+def get_professor_course_data(input_data):
+    if isinstance(input_data, str) and input_data.find('\n') == -1:
+        with open(input_data) as class_data_file:
+            class_data = class_data_file.readlines()
+    elif input_data.find('\n') != -1:
+        class_data = input_data.splitlines()
+    else:
+        print('''Invalid Input. Please input a valid file name of the correct format 
+            or data of type str that matches the required format''')
+        return -1
 
     professor_course_mapping = {}
     for row in class_data:
@@ -27,7 +34,12 @@ def q1(cleaned_txt):
 
 def q2(cleaned_txt):
     professor_course_data = get_professor_course_data(cleaned_txt)
-    print(professor_course_data['Theys'])
+
+    course_list_string = ''
+    for course in sorted(professor_course_data['Theys']):
+        course_list_string += course + ', '
+    course_list_string.strip(',')
+    print(course_list_string)
     return professor_course_data['Theys']
 
 
@@ -49,7 +61,7 @@ def q3(cleaned_txt):
                     prof_data['jaccard_distance'] = jaccard_distance_for_courses['jaccard_distance']
                     prof_comparison.append(prof_data)
     sorted_prof_comparison = sorted([(row['jaccard_distance'], row['prof1'], row['prof2']) for row in prof_comparison])
-    print(sorted_prof_comparison[0])
+    print(sorted_prof_comparison[0][1], sorted_prof_comparison[0][2])
     return sorted_prof_comparison[0]
 
 
@@ -99,8 +111,3 @@ def generate_idf(list_of_documents):
             
     return idf_values
 
-
-if __name__ == '__main__':
-    q1('cleaned.txt')
-    q2('cleaned.txt')
-    q3('cleaned.txt')

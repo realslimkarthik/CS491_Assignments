@@ -69,7 +69,8 @@ def write_to_csv(output_data, output_file):
 
 
 if __name__ == '__main__':
-    soup = generate_soup('superbowl.html')
+    html_file_name = sys.argv[1]
+    soup = generate_soup(html_file_name)
     table_data = soup.find_all('table')[1]
     superbowl_data = extract_data_from_table(table_data)
     write_to_csv(superbowl_data, 'result.csv')

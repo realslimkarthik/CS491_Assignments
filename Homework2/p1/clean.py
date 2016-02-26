@@ -2,7 +2,7 @@ import sys
 import re
 import roman
 import enchant
-from Levenshtein import distance
+
 
 def get_professor_course_mapping(dirty_professor_course_data):
     clean_professor_course_data = {}
@@ -113,8 +113,7 @@ def edit_distance_for_equal_length_strings(string1, string2):
 
 
 def fix_misspelt_course_names(professor_course_data):
-    word_dict = enchant.Dict('en')
-    # word_dict = enchant.Dict('en_US')
+    word_dict = enchant.Dict('en_US')
     for prof_name in professor_course_data.keys():
         new_course_list = []
         for course in professor_course_data[prof_name]:
@@ -125,16 +124,11 @@ def fix_misspelt_course_names(professor_course_data):
                 if not word_dict.check(term):
                     suggestions = word_dict.suggest(term)
                     suggestions = filter(lambda x: len(x) == len(term), suggestions)
-                    # suggestions = list(filter(lambda x: distance(term, x) == 1, suggestions))
                     suggestions = list(filter(lambda x: edit_distance_for_equal_length_strings(term, x) == 1, suggestions))
                     if len(suggestions) > 0:
-                        print(suggestions)
-                        print(term)
-                        print(prof_name)
                         new_term = suggestions[0]
-                        # sys.exit(1)
                     else:
-                        word_dict.add(term)
+                        word_dict.add_to_session(term)
                 new_term_list.append(new_term)
             new_course_list.append(' '.join(new_term_list))
         professor_course_data[prof_name] = new_course_list

@@ -63,10 +63,13 @@ def clean_abbreviations(list_of_strings):
     cleaned_list_of_strings = []
     intro_regex = re.compile(r'\b(intro)(\.|\b)')
     n_dimensions_regex = re.compile(r'\b((\d+)d)\b', re.IGNORECASE)
-    tv_regex = re.compile(r'\bt(?|.)v(?|.)\b', re.IGNORECASE)
+    tv_regex = re.compile(r'\bt(\.?)v(\.?)\b', re.IGNORECASE)
+    sci_fi_regex = re.compile(r'\bsci(\.?)((\:|\-|\ )?)fi(\.?)\b', re.IGNORECASE)
+
     for string in list_of_strings:
         cleaned_string = intro_regex.sub('introduction ', string.lower())
         cleaned_string = tv_regex.sub('television', cleaned_string)
+        cleaned_string = sci_fi_regex.sub('science fiction', cleaned_string)
         match = n_dimensions_regex.search(cleaned_string)
         if match:
             n = str(match.group(0)[:-1])

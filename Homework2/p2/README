@@ -1,0 +1,25 @@
+README: The details of the programs used in problem 2 are as follows.
+
+
+Installed packages:
+    *beautifulsoup4
+
+To install, run the pip3 install command on the requirements.txt file as follows
+
+pip3 install -r requirements.txt
+
+
+Explanation of the solution:
+    My program obtains every row of the 2nd table in the Wikipedia source after the header row. After this it retrieves a data item at a time based on its position in the row and stores it in a dictionary. Each dictionary is then stored in a list which is then returned from its function. After this, the data is written using a CSV DictWriter which is initialized with fieldnames identical to the keys of the individual dictionaries stored in the list and finally, the list of dictionaries are written into a CSV file.
+
+
+Running the Program:
+    My program takes a command line parameter as input for the name of the HTML file that needs to be parsed.
+        Eg: python3 transform.py superbow.html
+
+
+Note: I was having problems with the parsing of the HTML file. For some reason my HTML file kept getting encoded a certain way that would make it read the angle brackets (<>) of each HTML tag as (&lt; or &gt;). If my program doesn't run then this will probably be the reason for it.
+
+
+References:
+    * BeautifulSoup documentation website at http://www.crummy.com/software/BeautifulSoup/bs4/doc/

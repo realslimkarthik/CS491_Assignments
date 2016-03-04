@@ -6,11 +6,11 @@ import sys
 import csv
 
 # See Assignment 1 instructions for how to get these credentials
-access_token_key = "<Enter your access token key here>"
-access_token_secret = "<Enter your access token secret here>"
+access_token_key = "478809538-WkTRGB1E3ZUFh4YZhyO3yTpdsaNLy8kzYE0i3CjH"
+access_token_secret = "5BKKRE1DjotYsBE9Jev13V8O7eLDYB2qewA3dSkcesdwC"
 
-consumer_key = "<Enter consumer key>"
-consumer_secret = "<Enter consumer secret>"
+consumer_key = "6M3BsmWLbgJnGRZCIyPBBWs53"
+consumer_secret = "hfrgEn95CUeYKjGbUyaqKs7p6QgSDaMVVA4dL6ZrGHGAaGE2mS"
 
 _debug = 0
 
@@ -68,9 +68,23 @@ def fetch_by_terms(term):
     print (response.readline())
 
 def fetch_by_user_names(user_name_file):
-    #TODO: Fetch the tweets by the list of usernames and write them to stdout in the CSV format
     sn_file = open(user_name_file)
+    url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
+    with open(user_name_file) as username_file:
+        user_names = [username.strip() for username in username_file.readlines()]
 
+    user_name_tweet_data = {}
+    for user_name in user_names:
+        parameters = [("screen_name", user_name), ("count", 100)]
+        response = twitterreq(url, "GET", parameters)
+        user_name_tweet_data[user_name] = []
+        for line in response:
+            # tweet_json = json.loads(str(line.strip()))
+            # user_name_tweet_data[user_name].append(tweet_json['text'].encode('utf-8'))
+            user_name_tweet_data[user_name].append(line.strip())
+
+
+    print(user_name_tweet_data.keys())
     writer = csv.writer(sys.stdout)
 
 if __name__ == '__main__':

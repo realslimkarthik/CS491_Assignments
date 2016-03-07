@@ -31,12 +31,7 @@ def compute_term_frequency(tweet_list):
     return term_frequencies
 
 
-def main():
-    stopword_file_name = sys.argv[1]
-    with open(stopword_file_name) as stopword_file:
-        stopwords = {stopword.strip(): 1 for stopword in stopword_file.readlines()}
-
-    tweet_file_name = sys.argv[2]
+def extract_tweets(tweet_file_name):
     with open(tweet_file_name) as tweet_file:
         tweet_list = [tweet.strip() for tweet in tweet_file.readlines()]
 
@@ -45,6 +40,16 @@ def main():
         tweet_json = json.loads(str(tweet))
         tweets.append(tweet_json['text'])
 
+    return tweets
+
+
+def main():
+    stopword_file_name = sys.argv[1]
+    with open(stopword_file_name) as stopword_file:
+        stopwords = {stopword.strip(): 1 for stopword in stopword_file.readlines()}
+
+    tweet_file_name = sys.argv[2]
+    tweets = extract_tweets(tweet_file_name)
     tweets_without_stopwords = [remove_stopwords(tweet, stopwords) for tweet in tweets]
     term_frequencies = compute_term_frequency(tweets_without_stopwords)
 

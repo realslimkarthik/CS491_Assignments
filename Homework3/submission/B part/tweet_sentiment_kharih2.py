@@ -1,7 +1,6 @@
 import sys
 import re
 import json
-from operator import attrgetter
 
 def extract_tweets(tweet_file_name):
     with open(tweet_file_name) as tweet_file:

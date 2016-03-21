@@ -1,5 +1,6 @@
 import sys
 import json
+from operator import itemgetter
 
 
 def remove_stopwords(tweet, stopwords):
@@ -52,7 +53,7 @@ def main():
     tweets = extract_tweets(tweet_file_name)
     tweets_without_stopwords = [remove_stopwords(tweet, stopwords) for tweet in tweets]
     term_frequencies = compute_term_frequency(tweets_without_stopwords)
-
+    sorted_term_frequencies = sorted(term_frequencies.items(), key=itemgetter(1, 0), reverse=True)
     row = '{0}\t{1:.10f}'
 
     for term, frequency in term_frequencies.items():

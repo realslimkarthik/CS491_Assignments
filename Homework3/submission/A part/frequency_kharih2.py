@@ -56,8 +56,8 @@ def main():
     sorted_term_frequencies = sorted(term_frequencies.items(), key=itemgetter(1, 0), reverse=True)
     row = '{0}\t{1:.10f}'
 
-    for term, frequency in term_frequencies.items():
-        print(row.format(term, frequency))
+    for term_frequency in sorted_term_frequencies:
+        print(row.format(term_frequency[0], term_frequency[1]))
     
 
 if __name__ == '__main__':

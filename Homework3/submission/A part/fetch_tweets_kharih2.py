@@ -6,7 +6,7 @@ import requests
 import sys
 import csv
 
-# See Assignment 1 instructions for how to get these credentials
+
 access_token_key = "478809538-WkTRGB1E3ZUFh4YZhyO3yTpdsaNLy8kzYE0i3CjH"
 access_token_secret = "5BKKRE1DjotYsBE9Jev13V8O7eLDYB2qewA3dSkcesdwC"
 
@@ -63,13 +63,14 @@ def fetch_samples():
         for line in response:
             tweet = json.loads(line.decode('utf-8').strip())
             output_file.write(json.dumps(tweet) + '\n')
-            # print(json.dumps(tweet) + '\n')
+
 
 def fetch_by_terms(term):
     url = "https://api.twitter.com/1.1/search/tweets.json"
-    parameters = [("q", term)]
+    parameters = [("q", term), ("count", 100)]
     response = twitterreq(url, "GET", parameters)
     print (response.readline())
+
 
 def fetch_by_user_names(user_name_file):
     sn_file = open(user_name_file)

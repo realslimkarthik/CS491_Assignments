@@ -2,6 +2,7 @@ import sys
 import csv
 import re
 from operator import itemgetter
+from phrase_sentiment import extract_sentiment_values, compute_sentiment
 
 
 def extract_actors_tweets(csv_file_name):
@@ -15,33 +16,6 @@ def extract_actors_tweets(csv_file_name):
                 actors_tweets[row['user_name']] = [row['tweet']]
 
     return actors_tweets
-
-
-def extract_sentiment_values(sentiment_file_name):
-    with open(sentiment_file_name) as sentiment_file:
-        sentiment_data = {}
-        for line in sentiment_file:
-            term, sentiment = line.strip().split('\t')
-            sentiment_data[term] = int(sentiment)
-
-    return sentiment_data
-
-
-def clean_word(word):
-    non_character_regex = re.compile(r'[^a-zA-Z]')
-    cleaned_word = non_character_regex.sub('', word.lower())
-    return cleaned_word
-
-
-def compute_sentiment(phrase, sentiment_values):
-    sentiment_value = 0
-    words_in_phrase = phrase.split()
-    for word in words_in_phrase:
-        cleaned_word = clean_word(word)
-        if sentiment_values.get(cleaned_word):
-            sentiment_value += sentiment_values[cleaned_word]
-
-    return phrase, sentiment_value
 
 
 def compute_sentiment_for_tweets(tweets, sentiment_values):

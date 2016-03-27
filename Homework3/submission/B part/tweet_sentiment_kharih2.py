@@ -1,6 +1,8 @@
 import sys
 import re
 import json
+from phrase_sentiment import extract_sentiment_values, compute_sentiment
+
 
 def extract_tweets(tweet_file_name):
     with open(tweet_file_name) as tweet_file:
@@ -12,33 +14,6 @@ def extract_tweets(tweet_file_name):
         tweets.append(tweet_json['text'])
 
     return tweets
-
-
-def extract_sentiment_values(sentiment_file_name):
-    with open(sentiment_file_name) as sentiment_file:
-        sentiment_data = {}
-        for line in sentiment_file:
-            term, sentiment = line.strip().split('\t')
-            sentiment_data[term] = int(sentiment)
-
-    return sentiment_data
-
-
-def clean_word(word):
-    non_character_regex = re.compile(r'[^a-zA-Z]')
-    cleaned_word = non_character_regex.sub('', word.lower())
-    return cleaned_word
-
-
-def compute_sentiment(phrase, sentiment_values):
-    sentiment_value = 0
-    words_in_phrase = phrase.split()
-    for word in words_in_phrase:
-        cleaned_word = clean_word(word)
-        if sentiment_values.get(cleaned_word):
-            sentiment_value += sentiment_values[cleaned_word]
-
-    return phrase, sentiment_value
 
 
 def get_top_ten(tweet_sentiment_values, negative=False):
@@ -74,6 +49,12 @@ def get_top_ten(tweet_sentiment_values, negative=False):
     return top_ten
 
 
+def remove_new_lines(text):
+    one_line_text = text.replace('\n', ' ')
+    one_line_text = one_line_text.replace('\r', ' ')
+    return one_line_text
+
+
 def main():
     sent_file_name = sys.argv[1]
     sentiment_data = extract_sentiment_values(sent_file_name)
@@ -90,10 +71,10 @@ def main():
     bottom_ten = get_top_ten(tweets_sentiment_value, negative=True)
     
     for tweet in top_ten:
-        print(tweet['tweet'] + '\t' + str(tweet['sentiment_value']))
+        print(remove_new_lines(tweet['tweet']) + '\t' + str(tweet['sentiment_value']))
 
     for tweet in bottom_ten:
-        print(tweet['tweet'] + '\t' +  str(tweet['sentiment_value']))
+        print(remove_new_lines(tweet['tweet']) + '\t' +  str(tweet['sentiment_value']))
 
 
 if __name__ == '__main__':

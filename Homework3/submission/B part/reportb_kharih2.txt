@@ -1,0 +1,91 @@
+B.1: Sentiment scores for sample tweets (Top and Bottom 10)
+
+Top 10:
+
+RT @mtaurustweets: #Taurus named Love love to love love with all the love in the whole universe with their heart full of love.	18
+RT @DLeonhardt: Ted Cruz's very, very good week: - wins TX, OK, AK - GOP takes on Trump - good debate - wins KS, ME - wins late LA vote - R…	18
+RT @lislmae: Inner Circle is lucky to have WINNER but I always love it when other people say WINNER is lucky to have Inner Circle. It's jus…	17
+dear Harry @Harry_Styles, thanks for all you do 🐝 you're a true inspiration &amp; blessing to us all 🌷 mind following me? I love you :D x527,698	14
+RT @slimthicknic: I'm a big ass baby. I love attention, I love affection, I love being babied period. Like love on me dammit 😩	14
+RT @ALDUBNation: It's great to be happy, but it's even better to bring happiness to others.  Happy Sunday! 😊  MAINE GrandVotingParty #VoteM…	14
+RT @ALDUBNation: It's great to be happy, but it's even better to bring happiness to others.  Happy Sunday! 😊  MAINE GrandVotingParty #VoteM…	14
+RT @raine_luffy: wow @dealwithBARBIE you won a best actress award at your age. you sure deserve to be gma teen queen looks plus real and na…	13
+RT @kerpen: So Cruz will win ME and KS big, while Trump wins LA and KY narrowly.  Cruz will win the delegates on the day.	13
+RT @HimalayanGunz: 'You can love a person dear to you with a human love, but an enemy can only be loved with divine love' - Leo Tolstoy, Wa…	12
+
+Bottom 10:
+
+Phone dead is shit 😩 I hate when I leave my charger 🤔	-11
+RT @DreadChapo: When someone says " who the fuck made this nasty ass food"  http://t.co/VFiJ4dz5M3	-11
+RT @HeelyRiddler: i hate talkn about politics but hillary clinton has a fat fucking ass bro.....	-11
+You posted that and then spammed me. Bitch you always do this shit. You talk shit and then act like you weren't.  https://t.co/ySmjTlvv8g	-11
+RT @sadvisuaI: It sucks because I try so fucking hard and nothing I do ever seems to be enough for anyone. Not even my damn self...	-12
+RT @Jester_Nihill: As much as you might hate playing PNDA or hate watching them use gay shit, you cant hate on them for using the ruleset C…	-13
+Fix your fucking shit @XFINITY @comcast I'm not going to miss this pay per view because of your shitty service	-14
+RT @_jahmall_: Y'all young niggas keep falling into that wanna be savage and fuck everything mentality and see where that shit gets you.	-14
+Niggas be so damn disoriented 🙄😡😤 fucking talking to retards😒	-15
+Dead ass if I stop getting mad &amp; rashing you, you dead ass lost me like das it	-19
+
+
+B.2: Sentiment scores for all Breaking Bad actors
+
+mrbobodenkirk	1.84
+quiethandfilms	1.6666666666666667
+Krystenritter	1.653061224489796
+RjMitte	1.48
+aaronpaul_8	1.2234042553191489
+deanjnorris	1.22
+LuisMoncada77	1.1855670103092784
+betsy_brandt	1.18
+CharlesEbaker	1.0510204081632653
+BryanCranston	0.98
+DanielMoncada80	0.7553191489361702
+mattjonesisdead	0.17708333333333334
+
+
+B.3: The happiest states and the unhappiest states (and their sentiment scores)
+
+VT	6.0
+WI	2.0
+SC	2.0
+PA	2.0
+ID	2.0
+HI	2.0
+OK	1.5
+MN	1.5
+IN	1.25
+IL	1.2105263157894737
+WA	1.0476190476190477
+SD	1.0
+IA	1.0
+NY	0.8787878787878788
+NM	0.75
+AL	0.6666666666666666
+MI	0.6363636363636364
+TN	0.5714285714285714
+CA	0.5625
+VA	0.5333333333333333
+MO	0.4
+LA	0.3333333333333333
+AZ	0.16666666666666666
+GA	0.08333333333333333
+TX	0.03333333333333333
+UT	0.0
+ND	0.0
+AK	0.0
+MD	-0.25
+MA	-0.25
+NE	-0.3333333333333333
+CO	-0.3333333333333333
+NV	-0.42857142857142855
+AR	-0.5
+KS	-0.5714285714285714
+RI	-0.6666666666666666
+NC	-0.75
+KY	-0.8
+FL	-0.8064516129032258
+NJ	-0.8571428571428571
+OH	-1.0833333333333333
+OR	-2.0
+CT	-2.0
+

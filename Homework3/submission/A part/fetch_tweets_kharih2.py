@@ -59,10 +59,8 @@ def fetch_samples():
     url = "https://stream.twitter.com/1.1/statuses/sample.json?language=en"
     parameters = []
     response = twitterreq(url, "GET", parameters)
-    with open('streaming_output_full.txt', 'w') as output_file:
-        for line in response:
-            tweet = json.loads(line.decode('utf-8').strip())
-            output_file.write(json.dumps(tweet) + '\n')
+    for line in response:
+        print(line.strip().decode('utf-8'))
 
 
 def fetch_by_terms(term):

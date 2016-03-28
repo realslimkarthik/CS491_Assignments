@@ -1,32 +1,51 @@
+
+Examples of Search Output Results
+
+Seach Term used: Ronaldo
+
+rahh no Messi and Ronaldo but yess to Verratti and Zidane  https://t.co/ZBb9zZK3PI
+RT @_futmais: Messi: "Cristiano Ronaldo mereceu a Bola de Ouro sempre que ganhou." https://t.co/qtaVjZDalU
+quand on me dit que cristiano ronaldo est plus fort que messi https://t.co/ydSp1HpG9i
+I liked a @YouTube video from @nepenthez https://t.co/APKfq5ABDM 98 Ronaldo &amp; HERO Messi!! FUT DRAFT TO GLORY #80 - FIFA 16 Ultimate
+RT @messi10stats: Messi v Ronaldo: Dawn of Justice! | Batman v Superman Trailer Parody https://t.co/Dgzkmud3R9
+98 Ronaldo &amp; HERO Messi!! FUT DRAFT TO GLORY #80 https://t.co/38up8shODE
+Cristiano Ronaldo, Cr7, @Cristiano  https://t.co/tBJmTcbynF
+Cristiano Ronaldo has been included in Bleacher Report's Best Portuguese XI in Premier League history. https://t.co/qQHs7P
+RT @ScoresVideo: Cristiano Ronaldo has been included in Bleacher Report's Best Portuguese XI in Premier League history. https://t.co/qQHs7P
+Sometimes world class stars don't buy into the hard work, playing as a team. Some do - like Suarez. Many don't like C. Ronaldo.
+
+
 30 most frequent terms along with their term frequency
 
-RT	0.0607117582
-#KCA	0.0059144677
--	0.0048276211
-I'm	0.0048023456
-like	0.0040946315
-&amp	0.0037913254
-see	0.0031088869
-love	0.0029825094
-#VoteMaineFPP	0.0028814073
-Weather	0.0028308563
-get	0.0026033768
-don't	0.0023253463
-one	0.0022242443
-u	0.0020725912
-know	0.0020725912
-Get	0.0020220402
-@NiallOfficial	0.0020220402
-want	0.0019967647
-Good	0.0019714892
-MAINE	0.0019462137
-GrandVotingParty	0.0019209382
-chance	0.0018956627
-people	0.0018703872
-McGregor	0.0018703872
-@UFCEurope	0.0017440097
-Supporting	0.0016429077
-Mr	0.0016429077
-#UFC196!	0.0016429077
-🍀	0.0016176322
-🇮🇪	0.0016176322
+RT 0.0631158525
+#KCA 0.0061486717
+I'm 0.0049925112
+like 0.0042567727
+&amp 0.0039414562
+see 0.0032319941
+love 0.0031006122
+#VoteMaineFPP 0.0029955067
+Weather 0.0029429540
+get 0.0027064666
+don't 0.0024174265
+one 0.0023123210
+u 0.0021546627
+know 0.0021546627
+Get 0.0021021100
+@NiallOfficial 0.0021021100
+want 0.0020758336
+Good 0.0020495572
+MAINE 0.0020232809
+GrandVotingParty 0.0019970045
+chance 0.0019707281
+people 0.0019444517
+McGregor 0.0019444517
+@UFCEurope 0.0018130699
+Supporting 0.0017079644
+Mr 0.0017079644
+#UFC196! 0.0017079644
+would 0.0016816880
+https://t.co/y83kyHfDiY 0.0016816880
+good 0.0016816880
+
+NOTE - Removed words that weren't alphanumeric. A hyphen (-) was the most frequent term in the set of tweets used which was used in a lot of tweets like 'RT @twitter_username - this is a retweet'. Since such symbols hold very little meaning, they have been removed.

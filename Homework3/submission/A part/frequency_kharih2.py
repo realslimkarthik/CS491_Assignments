@@ -1,5 +1,6 @@
 import sys
 import json
+import re
 from operator import itemgetter
 
 
@@ -13,15 +14,22 @@ def remove_stopwords(tweet, stopwords):
     return tweet_without_stopwords
 
 
+def clean_term(term):
+    cleaned_term = re.sub('[^a-zA-Z0-9]', '', term)
+    return cleaned_term.strip()
+
+
 def compute_term_frequency(tweet_list):
     term_counts = {}
     term_frequencies = {}
     for tweet in tweet_list:
         for term in tweet:
-            if term_counts.get(term):
-                term_counts[term] += 1
-            else:
-                term_counts[term] = 1
+            cleaned_term = clean_term(term)
+            if cleaned_term != '':
+                if term_counts.get(term):
+                    term_counts[term] += 1
+                else:
+                    term_counts[term] = 1
 
     total_count_of_terms = sum(count for term, count in term_counts.items())
 
@@ -57,6 +65,7 @@ def main():
     row = '{0}\t{1:.10f}'
 
     for term_frequency in sorted_term_frequencies:
+
         print(row.format(term_frequency[0], term_frequency[1]))
     
 
